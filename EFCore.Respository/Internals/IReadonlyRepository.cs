@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace EFCore.Respository.Internals
+namespace EFCore.Repository.Internals
 {
     public interface IReadonlyRepository
     {

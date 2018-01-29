@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using EFCore.Respository.Internals;
+using EFCore.Repository.Internals;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFCore.Respository
+namespace EFCore.Repository
 {
-    public class Repository : IRepository
+    public class RepositoryBase : IRepository
     {
         #region Private fields
 
@@ -18,7 +18,10 @@ namespace EFCore.Respository
 
         #region Constructor
 
-        public Repository(DbContext context) => _context = context;
+        public RepositoryBase(DbContext context)
+        { 
+            _context = context;
+        }
 
         #endregion
 

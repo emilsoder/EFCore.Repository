@@ -1,6 +1,7 @@
-﻿using EFCore.Respository.Internals;
+﻿using EFCore.Repository.Internals;
+using Microsoft.EntityFrameworkCore;
 
-namespace EFCore.Respository
+namespace EFCore.Repository
 {
-    public interface IRepository : IReadonlyRepository, IAsyncReadOnlyRepository, IInternalRepository { }
+    public interface IRepository: IReadonlyRepository, IAsyncReadOnlyRepository, IInternalRepository { }
 }

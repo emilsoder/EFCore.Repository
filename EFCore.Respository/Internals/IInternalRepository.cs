@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace EFCore.Respository.Internals
+namespace EFCore.Repository.Internals
 {
     /// <summary>
     ///     Data access layer for operations against the CMS Core database

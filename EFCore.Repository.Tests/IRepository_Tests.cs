@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using EFCore.Repository.Tests.FakeData;
-using EFCore.Respository;
 using Xunit;
 
 namespace EFCore.Repository.Tests
@@ -13,7 +12,7 @@ namespace EFCore.Repository.Tests
         public IRepository_Tests()
         {
             var _context = DbInitializer.CreateFakeDatabase();
-            _repository = new Respository.Repository(_context);
+            _repository = new Repository(_context);
         }
 
 

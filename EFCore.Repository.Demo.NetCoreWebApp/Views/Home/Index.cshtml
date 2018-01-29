@@ -1,0 +1,108 @@
+﻿@model List<Movie>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Released
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td id="td_id_@movie.Id">@movie.Id</td>
+                <td id="td_title_@movie.Id">@movie.Title</td>
+                <td id="td_releaseyear_@movie.Id">@movie.ReleaseYear</td>
+
+                <td><button class="btn btn-info" onclick="showUpdateModal(@movie.Id)">Update</button></td>
+                <td><a asp-action="Remove" asp-route-id="@movie.Id" class="btn btn-danger">Delete</a></td>
+            </tr>
+            <tr style="border-bottom: 3px solid gray">
+                <td id="td_description_@movie.Id" colspan="5">
+                    @movie.Summary
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Update" name="UpdateForm" asp-controller="Home" method="post">
+                    <div class="form-group" style="visibility: hidden; display: none">
+                        <label for="id">Id</label>
+                        <input type="number" name="Id"  class="form-control" id="id" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" name="Title" class="form-control" id="title">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="releaseyear">Release year</label>
+                        <input type="number" name="ReleaseYear" class="form-control" id="releaseyear">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea type="text" name="Summary" class="form-control" id="description"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showUpdateModal(id) {
+        var _id = $("#td_id_" + id + "")[0].innerText;
+        var _title = $("#td_title_" + id + "")[0].innerText;
+        var _releaseYear = $("#td_releaseyear_" + id + "")[0].innerText;
+        var _description = $("#td_description_" + id + "")[0].innerText;
+
+        console.log(_id);
+        console.log(_title);
+        console.log(_releaseYear);
+        console.log(_description);
+ 
+        $("#id").val(+_id);
+        $("#title").val(_title);
+        $("#releaseyear").val(_releaseYear);
+        $("#description").val(_description);
+        $('#updateModal').modal();
+    }
+
+
+
+</script>

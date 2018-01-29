@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace EFCore.Respository.Internals
+namespace EFCore.Repository.Internals
 {
     public interface IUnitOfWork
     {
