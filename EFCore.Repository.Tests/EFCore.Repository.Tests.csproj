@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EFCore.Respository\EFCore.Repository.csproj" />
+    <ProjectReference Include="..\EFCore.Repository\EFCore.Repository.csproj" />
   </ItemGroup>
 
 </Project>

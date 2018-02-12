@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EFCore.Respository\EFCore.Repository.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
      <!--Files not to publish (note that the 'dist' subfolders are re-added below)--> 
     <Compile Remove="ClientApplication\ClientApplication\**" />
     <Content Remove="ClientApplication\**" />
@@ -41,6 +37,10 @@
 
   <ItemGroup>
     <Folder Include="ClientApplication\src\app\movie\shared\services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EFCore.Repository\EFCore.Repository.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
