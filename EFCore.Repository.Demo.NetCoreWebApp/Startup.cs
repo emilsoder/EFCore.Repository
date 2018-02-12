@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using EFCore.Repository.Demo.NetCoreWebApp.Data;
+using EFCore.Repository.Demo.NetCoreWebApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,17 +24,29 @@ namespace EFCore.Repository.Demo.NetCoreWebApp
             services.AddMvc();
             services.AddConferenceApiDbContext();
             services.AddTransient<IRepository, RepositoryBase>();
+            services.AddTransient<IMovieService, MovieService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseBrowserLink();
-            app.UseDeveloperExceptionPage();
+            app.Use(async (context, next) => {
+                await next();
+                if (context.Response.StatusCode == 404 &&
+                    !Path.HasExtension(context.Request.Path.Value) &&
+                    !context.Request.Path.Value.StartsWith("/api/"))
+                {
+                    context.Request.Path = "/index.html";
+                    await next();
+                }
+            });
 
-            app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
         }
     }
+
     public static class StartupConfigurationBuilder
     {
         public static IServiceCollection AddConferenceApiDbContext(this IServiceCollection serviceCollection)

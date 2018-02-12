@@ -1,5 +1,4 @@
 ﻿using EFCore.Repository.Internals;
-using Microsoft.EntityFrameworkCore;
 
 namespace EFCore.Repository
 {

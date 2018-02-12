@@ -12,7 +12,7 @@ namespace EFCore.Repository.Tests
         public IRepository_Tests()
         {
             var _context = DbInitializer.CreateFakeDatabase();
-            _repository = new Repository(_context);
+            _repository = new RepositoryBase(_context);
         }
 
 

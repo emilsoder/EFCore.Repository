@@ -18,10 +18,7 @@ namespace EFCore.Repository
 
         #region Constructor
 
-        public RepositoryBase(DbContext context)
-        { 
-            _context = context;
-        }
+        public RepositoryBase(DbContext context) => _context = context;
 
         #endregion
 
@@ -35,41 +32,99 @@ namespace EFCore.Repository
 
         #region Add
 
-        void IInternalRepository.Add<T>(T entity) => _context.Add(entity);
+        void IInternalRepository.Add<T>(T entity)
+        {
+            if (entity == null) throw new Exception("entities cannot be null");
+            _context.Add(entity);
+        }
 
-        void IInternalRepository.Add<T>(List<T> entities) => _context.AddRange(entities);
+        void IInternalRepository.Add<T>(List<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            _context.AddRange(entities);
+        }
 
-        void IInternalRepository.Add<T>(IEnumerable<T> entities) => _context.AddRange(entities);
+        void IInternalRepository.Add<T>(IEnumerable<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            _context.AddRange(entities);
+        }
 
-        void IInternalRepository.Add<T>(IQueryable<T> entities) => _context.AddRange(entities);
+        void IInternalRepository.Add<T>(IQueryable<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            _context.AddRange(entities);
+        }
 
         #endregion
 
         #region Update
 
-        void IInternalRepository.Update<T>(T entity) => _context.Update(entity);
+        void IInternalRepository.Update<T>(T entity)
+        {
+            if (entity == null) throw new Exception("entities cannot be null");
+            _context.Update(entity);
+        }
 
-        void IInternalRepository.Update<T>(List<T> entities) => _context.UpdateRange(entities);
+        void IInternalRepository.Update<T>(List<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            _context.UpdateRange(entities);
+        }
 
-        void IInternalRepository.Update<T>(IEnumerable<T> entities) => _context.UpdateRange(entities);
+        void IInternalRepository.Update<T>(IEnumerable<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            _context.UpdateRange(entities);
+        }
 
-        void IInternalRepository.Update<T>(IQueryable<T> entities) => _context.UpdateRange(entities);
+        void IInternalRepository.Update<T>(IQueryable<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            _context.UpdateRange(entities);
+        }
 
         #endregion
 
         #region Remove
 
-        void IInternalRepository.Remove<T>(T entity) => _context.Remove(entity);
+        void IInternalRepository.Remove<T>(T entity)
+        {
+            if (entity == null) throw new Exception("entity cannot be null");
+            _context.Remove(entity);
+        }
 
-        void IInternalRepository.Remove<T>(List<T> entities) => _context.RemoveRange(entities);
+        void IInternalRepository.Remove<T>(List<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            _context.RemoveRange(entities);
+        }
 
-        void IInternalRepository.Remove<T>(IEnumerable<T> entities) => _context.RemoveRange(entities);
+        void IInternalRepository.Remove<T>(IEnumerable<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            _context.RemoveRange(entities);
+        }
 
-        void IInternalRepository.Remove<T>(IQueryable<T> entities) => _context.RemoveRange(entities);
+        void IInternalRepository.Remove<T>(IQueryable<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            _context.RemoveRange(entities);
+        }
 
-        void IInternalRepository.Remove<T>(int id) => _context.Remove(DbSet<T>().Find(id));
+        void IInternalRepository.Remove<T>(int id)
+        {
+            var entityToRemove = DbSet<T>().Find(id);
+            if (entityToRemove == null) return;
+            _context.Remove(entityToRemove);
+        }
 
-        void IInternalRepository.Remove<T>(Expression<Func<T, bool>> predicate) => _context.RemoveRange(DbSet<T>().Where(predicate));
+        void IInternalRepository.Remove<T>(Expression<Func<T, bool>> predicate)
+        {
+            var entitiesToRemove = DbSet<T>().Where(predicate);
+            if (!entitiesToRemove.Any()) return;
+            _context.RemoveRange(entitiesToRemove);
+        }
 
         #endregion
 
@@ -77,17 +132,43 @@ namespace EFCore.Repository
 
         #region IAsyncRepository
 
-        async Task IInternalRepository.RemoveAsync<T>(Expression<Func<T, bool>> predicate) => _context.RemoveRange(await DbSet<T>().FirstOrDefaultAsync(predicate));
+        async Task IInternalRepository.RemoveAsync<T>(Expression<Func<T, bool>> predicate)
+        {
+            var entityToRemove = await DbSet<T>().FirstOrDefaultAsync(predicate);
+            if (entityToRemove == null) return;
+            _context.RemoveRange(entityToRemove);
+        }
 
-        async Task IInternalRepository.RemoveAsync<T>(int id) => _context.RemoveRange(await DbSet<T>().FindAsync(id));
+        async Task IInternalRepository.RemoveAsync<T>(int id)
+        {
+            var entityToRemove = await DbSet<T>().FindAsync(id);
+            if (entityToRemove == null) return;
+            _context.RemoveRange(entityToRemove);
+        }
 
-        Task IInternalRepository.AddAsync<T>(T entity) => DbSet<T>()?.AddAsync(entity);
+        Task IInternalRepository.AddAsync<T>(T entity)
+        {
+            if (entity == null) throw new Exception("entity cannot be null");
+            return DbSet<T>()?.AddAsync(entity);
+        }
 
-        Task IInternalRepository.AddAsync<T>(List<T> entities) => DbSet<T>()?.AddRangeAsync(entities);
+        Task IInternalRepository.AddAsync<T>(List<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            return DbSet<T>()?.AddRangeAsync(entities);
+        }
 
-        Task IInternalRepository.AddAsync<T>(IEnumerable<T> entities) => DbSet<T>()?.AddRangeAsync(entities);
+        Task IInternalRepository.AddAsync<T>(IEnumerable<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            return DbSet<T>()?.AddRangeAsync(entities);
+        }
 
-        Task IInternalRepository.AddAsync<T>(IQueryable<T> entities) => DbSet<T>()?.AddRangeAsync(entities);
+        Task IInternalRepository.AddAsync<T>(IQueryable<T> entities)
+        {
+            if (entities == null) throw new Exception("entities cannot be null");
+            return DbSet<T>()?.AddRangeAsync(entities);
+        }
 
         #endregion
 
@@ -101,45 +182,99 @@ namespace EFCore.Repository
 
         #region IReadOnlyRepository
 
-        T IReadonlyRepository.Find<T>(Expression<Func<T, bool>> predicate) => DbSet<T>()?.FirstOrDefault(predicate);
+        T IReadonlyRepository.Find<T>(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet<T>()?.FirstOrDefault(predicate);
+        }
 
-        T IReadonlyRepository.Find<T>(int id) => DbSet<T>()?.Find(id);
+        T IReadonlyRepository.Find<T>(int id)
+        {
+            return DbSet<T>()?.Find(id);
+        }
 
-        IEnumerable<T> IReadonlyRepository.AsEnumerable<T>() => DbSet<T>()?.AsEnumerable();
+        IEnumerable<T> IReadonlyRepository.AsEnumerable<T>()
+        {
+            return DbSet<T>()?.AsEnumerable();
+        }
 
-        IQueryable<T> IReadonlyRepository.AsQueryable<T>() => DbSet<T>()?.AsQueryable();
+        IQueryable<T> IReadonlyRepository.AsQueryable<T>()
+        {
+            return DbSet<T>()?.AsQueryable();
+        }
 
-        List<T> IReadonlyRepository.ToList<T>() => DbSet<T>()?.ToList();
+        List<T> IReadonlyRepository.ToList<T>()
+        {
+            return DbSet<T>()?.ToList();
+        }
 
-        int IReadonlyRepository.Count<T>() => DbSet<T>()?.Count() ?? -1;
+        int IReadonlyRepository.Count<T>()
+        {
+            return DbSet<T>()?.Count() ?? 0;
+        }
 
-        bool IReadonlyRepository.Exists<T>(Expression<Func<T, bool>> predicate) => DbSet<T>()?.Any(predicate) ?? false;
+        bool IReadonlyRepository.Exists<T>(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet<T>()?.Any(predicate) ?? false;
+        }
 
         #endregion
 
         #region IAsyncReadOnlyRepository
 
-        async Task<IEnumerable<T>> IAsyncReadOnlyRepository.AsEnumerableAsync<T>() => await DbSet<T>().ToListAsync();
+        async Task<IEnumerable<T>> IAsyncReadOnlyRepository.AsEnumerableAsync<T>()
+        {
+            return await DbSet<T>().ToListAsync();
+        }
 
-        async Task<List<T>> IAsyncReadOnlyRepository.ToListAsync<T>() => await DbSet<T>().ToListAsync();
+        Task<List<T>> IAsyncReadOnlyRepository.ToListAsync<T>()
+        {
+            return DbSet<T>().ToListAsync();
+        }
 
-        Task<T> IAsyncReadOnlyRepository.FindAsync<T>(Expression<Func<T, bool>> predicate) => DbSet<T>()?.FirstOrDefaultAsync(predicate);
+        Task<T> IAsyncReadOnlyRepository.FindAsync<T>(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet<T>()?.FirstOrDefaultAsync(predicate);
+        }
 
-        Task<T> IAsyncReadOnlyRepository.FindAsync<T>(int id) => DbSet<T>()?.FindAsync(id);
+        Task<T> IAsyncReadOnlyRepository.FindAsync<T>(int id)
+        {
+            return DbSet<T>()?.FindAsync(id);
+        }
 
-        Task<int> IAsyncReadOnlyRepository.CountAsync<T>() => DbSet<T>()?.CountAsync();
+        Task<int> IAsyncReadOnlyRepository.CountAsync<T>()
+        {
+            return DbSet<T>()?.CountAsync();
+        }
 
-        Task<bool> IAsyncReadOnlyRepository.ExistsAsync<T>(Expression<Func<T, bool>> predicate) => DbSet<T>()?.AnyAsync(predicate);
+        Task<bool> IAsyncReadOnlyRepository.ExistsAsync<T>(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet<T>()?.AnyAsync(predicate);
+        }
 
-        T IReadonlyRepository.First<T>() => DbSet<T>()?.FirstOrDefault();
+        T IReadonlyRepository.First<T>()
+        {
+            return DbSet<T>()?.FirstOrDefault();
+        }
 
-        IQueryable<T> IReadonlyRepository.Where<T>(Expression<Func<T, bool>> predicate) => DbSet<T>()?.Where(predicate);
+        IQueryable<T> IReadonlyRepository.Where<T>(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet<T>()?.Where(predicate);
+        }
 
-        bool IReadonlyRepository.Any<T>(Expression<Func<T, bool>> predicate) => DbSet<T>().Any(predicate);
+        bool IReadonlyRepository.Any<T>(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet<T>().Any(predicate);
+        }
 
-        int IReadonlyRepository.Count<T>(Expression<Func<T, bool>> predicate) => DbSet<T>()?.Count(predicate) ?? -1;
+        int IReadonlyRepository.Count<T>(Expression<Func<T, bool>> predicate)
+        {
+            return DbSet<T>()?.Count(predicate) ?? 0;
+        }
 
-        Task<T> IAsyncReadOnlyRepository.FirstAsync<T>() => DbSet<T>()?.FirstOrDefaultAsync();
+        Task<T> IAsyncReadOnlyRepository.FirstAsync<T>()
+        {
+            return DbSet<T>()?.FirstOrDefaultAsync();
+        }
 
         #endregion
     }

@@ -2,12 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,4 +22,30 @@
     <ProjectReference Include="..\EFCore.Respository\EFCore.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+     <!--Files not to publish (note that the 'dist' subfolders are re-added below)--> 
+    <Compile Remove="ClientApplication\ClientApplication\**" />
+    <Content Remove="ClientApplication\**" />
+    <EmbeddedResource Remove="ClientApplication\ClientApplication\**" />
+    <None Remove="ClientApplication\ClientApplication\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApplication\.angular-cli.json" />
+    <Content Include="ClientApplication\package-lock.json" />
+    <Content Include="ClientApplication\package.json" />
+    <Content Include="ClientApplication\src\tsconfig.app.json" />
+    <Content Include="ClientApplication\tsconfig.json" />
+    <Content Include="ClientApplication\tslint.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApplication\src\app\movie\shared\services\" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="cd $(ProjectDir)ClientApplication &amp;&amp; ng build" />
+  </Target>
+
+ 
 </Project>
