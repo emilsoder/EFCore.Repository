@@ -8,6 +8,7 @@
     <PackageProjectUrl>https://github.com/emilsoder/EFCore.Repository</PackageProjectUrl>
     <RepositoryUrl>https://github.com/emilsoder/EFCore.Repository.git</RepositoryUrl>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

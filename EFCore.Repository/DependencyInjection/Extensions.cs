@@ -32,6 +32,7 @@ namespace EFCore.Repository.DependencyInjection
             Action<DbContextOptionsBuilder> optionsBuilder)
             where T : DbContext
         {
+            services.AddRepository();
             services.AddDbContext<T>(optionsBuilder);
             return services.AddScoped<DbContext>(provider => provider.GetService<T>());
         }
