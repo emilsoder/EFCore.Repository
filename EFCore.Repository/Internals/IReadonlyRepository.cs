@@ -85,3 +85,5 @@ namespace EFCore.Repository.Internals
         int Count<T>(Expression<Func<T, bool>> predicate) where T : class;
     }
 }
+
+//dotnet nuget push AppLogger.1.0.0.nupkg -k oy2cyhptrkceyqvaqixqhsowno6ryrautguqnggz3hl2bi -s https://api.nuget.org/v3/index.json

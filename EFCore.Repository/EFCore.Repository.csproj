@@ -5,6 +5,9 @@
     <Authors>Emil Hedström Södergren</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Repository pattern abstraction for Entity Framework Core.</Description>
+    <PackageProjectUrl>https://github.com/emilsoder/EFCore.Repository</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/emilsoder/EFCore.Repository.git</RepositoryUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
